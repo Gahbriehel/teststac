@@ -48,7 +48,8 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
           {isPasswordField ? (
             <div className="flex items-center justify-between">
               <label htmlFor={id} className="text-sm text-[#52525B]">
-                {label}&nbsp;{required && <span className="text-red-600">*</span>}
+                {label}&nbsp;
+                {required && <span className="text-red-600">*</span>}
               </label>
               <Link
                 href="/forgot-password"

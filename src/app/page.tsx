@@ -137,7 +137,9 @@ export default function Login(): JSX.Element {
         </div>
       </div>
       <p className="text-red-600 text-center">Yeehoisd</p>
-      <Link href={'/merchants'} className="text-red-800 text-center">Go to merchantooooo</Link>
+      <Link href={"/merchants"} className="text-red-800 text-center">
+        Go to merchantooooo
+      </Link>
     </div>
   );
 }
