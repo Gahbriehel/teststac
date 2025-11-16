@@ -3,7 +3,6 @@
 // app/merchants/dashboard/page.tsx
 import { type NextPage } from "next";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import {
   flexRender,
@@ -21,18 +20,10 @@ import {
   type SetStateAction,
   type JSX,
 } from "react";
-import {
-  TbSquareRoundedChevronLeftFilled,
-  TbSquareRoundedChevronRightFilled,
-  TbSquareRoundedChevronsLeftFilled,
-  TbSquareRoundedChevronsRightFilled,
-} from "react-icons/tb";
 import { GoInbox } from "react-icons/go";
 import { MdError, MdPerson } from "react-icons/md";
 import { v4 } from "uuid";
 import { clsx } from "clsx";
-import { GrClose } from "react-icons/gr";
-import { IoSearch } from "react-icons/io5";
 import { Sidebar } from "@/components/UI/Sidebar";
 import Image from "next/image";
 import { Button } from "@headlessui/react";
@@ -234,7 +225,7 @@ function Table<T>({
   data,
   columns,
   children,
-  onRowClick = () => { },
+  onRowClick = () => {},
   error,
   loading,
   rowSelection,
@@ -287,9 +278,9 @@ function Table<T>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
                     </th>
                   ))}
                 </tr>
@@ -313,9 +304,9 @@ function Table<T>({
                       )}
                     >
                       {!["select", "image"].includes(cell.column.id) &&
-                        (cell.getValue() === null ||
-                          cell.getValue() === undefined ||
-                          cell.getValue() === "") ? (
+                      (cell.getValue() === null ||
+                        cell.getValue() === undefined ||
+                        cell.getValue() === "") ? (
                         <span className="text-gray-400">N/A</span>
                       ) : (
                         flexRender(
@@ -346,9 +337,9 @@ function Table<T>({
                       {footer.isPlaceholder
                         ? null
                         : flexRender(
-                          footer.column.columnDef.footer,
-                          footer.getContext(),
-                        )}
+                            footer.column.columnDef.footer,
+                            footer.getContext(),
+                          )}
                     </th>
                   ))}
                 </tr>
@@ -531,7 +522,9 @@ const DashboardPage: NextPage = () => {
                   <h3 className="text-base sm:text-lg font-semibold text-[#242440]">
                     Today’s Trending Locations
                   </h3>
-                  <Link href="#" className="underline text-[#242440] text-sm">Monitor Location Activities</Link>
+                  <Link href="#" className="underline text-[#242440] text-sm">
+                    Monitor Location Activities
+                  </Link>
                 </div>
 
                 <Table<LocationData>
