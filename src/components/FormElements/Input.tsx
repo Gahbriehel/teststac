@@ -52,7 +52,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
                 {required && <span className="text-red-600">*</span>}
               </label>
               <Link
-                href="/forgot-password"
+                href="#"
                 className="text-sm text-[#52525B] hover:underline"
               >
                 Forgot Password?
