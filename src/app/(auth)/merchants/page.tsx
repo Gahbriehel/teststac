@@ -9,6 +9,8 @@ import { passwordValidation } from "@/components/helpers/passwordValidation";
 import { Input } from "@/components/FormElements/Input";
 import { Checkbox } from "@/components/FormElements/Checkbox";
 import { Button } from "@headlessui/react";
+import { useRouter } from "next/navigation";
+
 
 interface Inputs {
   email: string;
@@ -17,6 +19,7 @@ interface Inputs {
 }
 
 export default function Login(): JSX.Element {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState<"password" | "text">(
     "password",
   );
@@ -44,7 +47,7 @@ export default function Login(): JSX.Element {
         staySignedIn: data.staySignedIn,
       };
       console.log("Login payload:", payload);
-      // router.push("/dashboard");
+      router.push("/dashboard");
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -113,7 +116,7 @@ export default function Login(): JSX.Element {
             </Button>
           </form>
           <Link
-            href="/validate-account"
+            href="#"
             className="mt-4 block text-center text-sm text-[#242440] hover:underline"
           >
             Validate your new account
@@ -122,7 +125,7 @@ export default function Login(): JSX.Element {
         <div className="p-2 px-6">
           <p className="mt-4 text-sm text-[#52525B]">
             Don&apos;t have an account?{" "}
-            <Link href="/signup" className="text-black hover:underline">
+            <Link href="#" className="text-black hover:underline">
               Book a session first
             </Link>
           </p>
