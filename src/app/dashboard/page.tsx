@@ -40,6 +40,7 @@ import { PiLightningBold } from "react-icons/pi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Modal } from "@/components/UI/Modal";
 import { StatContainer } from "@/components/UI/StatContainer";
+import Link from "next/link";
 
 // Dummy data embedded
 const dummyUser = {
@@ -94,9 +95,9 @@ const dummyChartData = {
 const dummyLocations = [
   {
     id: "1",
-    locationName: "Bokul Lekki",
-    region: "Bokul Region 1",
-    manager: "Cynthia Ofri",
+    locationName: "Bokku Lekki",
+    region: "Bokku - Region 1",
+    manager: "Cynthia Ofori",
     openingBalance: "₦570,000",
     remainingBalance: "₦570,000",
     amountMopped: "₦8,000,000",
@@ -104,19 +105,18 @@ const dummyLocations = [
   },
   {
     id: "2",
-    locationName: "Bokul Egbeda",
-    region: "Bokul Region 2",
+    locationName: "Bokku Egbeda",
+    region: "Bokku - Region 2",
     manager: "Adetola Makinde",
     openingBalance: "₦3,000,000",
     remainingBalance: "₦1,000,000",
     amountMopped: "₦2,800,000",
     feeStatus: "Weekend Fee",
   },
-  // Add more dummy rows as needed, up to 78, but for demo, 2 is fine
   {
     id: "3",
-    locationName: "Bokul Ikeja",
-    region: "Bokul Region 3",
+    locationName: "Bokku Ikeja",
+    region: "Bokku - Region 3",
     manager: "John Doe",
     openingBalance: "₦1,200,000",
     remainingBalance: "₦800,000",
@@ -234,15 +234,11 @@ function Table<T>({
   data,
   columns,
   children,
-  onRowClick = () => {},
+  onRowClick = () => { },
   error,
   loading,
   rowSelection,
   setRowSelection,
-  placeholder,
-  searchQuery,
-  setSearchQuery,
-  ...paginationControls
 }: Props<T>): JSX.Element {
   const table = useReactTable({
     data,
@@ -258,38 +254,9 @@ function Table<T>({
   });
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="flex-1 rounded-lg border border-gray-100 bg-white p-4 shadow-sm sm:p-6"
-    >
+    <div>
       <div className="sticky -top-6 z-10 mb-6 flex flex-col bg-white shadow-sm md:flex-row md:items-center md:justify-between md:gap-4">
         {children}
-        {setSearchQuery && (
-          <div className="relative w-full md:max-w-sm">
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-              <IoSearch size={18} />
-            </div>
-            <input
-              type="text"
-              placeholder={placeholder ?? "Search name"}
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-              }}
-              className="h-10 w-full rounded-md border border-gray-200 bg-gray-50 py-2 pl-10 pr-10 text-sm font-normal text-gray-700 transition-colors focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400 sm:h-12"
-            />
-            {searchQuery && (
-              <GrClose
-                className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 cursor-pointer text-gray-400 hover:text-gray-600"
-                onClick={() => {
-                  setSearchQuery("");
-                }}
-              />
-            )}
-          </div>
-        )}
       </div>
       {loading && <div className="py-8">Loading...</div>}
       {data.length === 0 && !error && !loading && (
@@ -309,20 +276,20 @@ function Table<T>({
       {data.length > 0 && (
         <div className="overflow-x-auto rounded-lg border border-gray-100">
           <table role="table" className="w-full border-collapse">
-            <thead className="bg-gray-50 text-gray-700">
+            <thead className="bg-[#242440] text-white">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={v4()}>
                   {headerGroup.headers.map((header) => (
                     <th
                       key={v4()}
-                      className="whitespace-nowrap border-b border-gray-200 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-sky-600"
+                      className="whitespace-nowrap border-b border-gray-200 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-white"
                     >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                     </th>
                   ))}
                 </tr>
@@ -346,9 +313,9 @@ function Table<T>({
                       )}
                     >
                       {!["select", "image"].includes(cell.column.id) &&
-                      (cell.getValue() === null ||
-                        cell.getValue() === undefined ||
-                        cell.getValue() === "") ? (
+                        (cell.getValue() === null ||
+                          cell.getValue() === undefined ||
+                          cell.getValue() === "") ? (
                         <span className="text-gray-400">N/A</span>
                       ) : (
                         flexRender(
@@ -379,9 +346,9 @@ function Table<T>({
                       {footer.isPlaceholder
                         ? null
                         : flexRender(
-                            footer.column.columnDef.footer,
-                            footer.getContext(),
-                          )}
+                          footer.column.columnDef.footer,
+                          footer.getContext(),
+                        )}
                     </th>
                   ))}
                 </tr>
@@ -390,10 +357,7 @@ function Table<T>({
           </table>
         </div>
       )}
-      {paginationControls.nextPage && paginationControls.previousPage && (
-        <PaginationControls {...paginationControls} />
-      )}
-    </motion.div>
+    </div>
   );
 }
 
@@ -420,110 +384,6 @@ function IndeterminateCheckbox({
       }
       {...rest}
     />
-  );
-}
-
-function PaginationControls({
-  gotoPage = () => {},
-  previousPage = () => {},
-  nextPage = () => {},
-  setPageSize = () => {},
-  pageSize = 10,
-  currentPage = 1,
-  totalPages = 1,
-  canPreviousPage = false,
-  canNextPage = false,
-}: Partial<IPaginationControls>): JSX.Element {
-  return (
-    <div className="mt-4 flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 pt-4">
-      <div className="flex items-center text-sm text-gray-600">
-        <span>
-          Showing page {currentPage} of {totalPages}
-        </span>
-      </div>
-      <div className="flex items-center gap-1">
-        <button
-          type="button"
-          onClick={() => {
-            gotoPage(1);
-          }}
-          disabled={!canPreviousPage}
-          className="rounded p-1 text-sky-600 hover:bg-sky-50 disabled:cursor-not-allowed disabled:text-gray-300 disabled:hover:bg-transparent"
-          aria-label="First page"
-        >
-          <TbSquareRoundedChevronsLeftFilled className="h-5 w-5" />
-        </button>
-        <button
-          type="button"
-          onClick={previousPage}
-          disabled={!canPreviousPage}
-          className="rounded p-1 text-sky-600 hover:bg-sky-50 disabled:cursor-not-allowed disabled:text-gray-300 disabled:hover:bg-transparent"
-          aria-label="Previous page"
-        >
-          <TbSquareRoundedChevronLeftFilled className="h-5 w-5" />
-        </button>
-        <button
-          type="button"
-          onClick={nextPage}
-          disabled={!canNextPage}
-          className="rounded p-1 text-sky-600 hover:bg-sky-50 disabled:cursor-not-allowed disabled:text-gray-300 disabled:hover:bg-transparent"
-          aria-label="Next page"
-        >
-          <TbSquareRoundedChevronRightFilled className="h-5 w-5" />
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            gotoPage(totalPages);
-          }}
-          disabled={!canNextPage}
-          className="rounded p-1 text-sky-600 hover:bg-sky-50 disabled:cursor-not-allowed disabled:text-gray-300 disabled:hover:bg-transparent"
-          aria-label="Last page"
-        >
-          <TbSquareRoundedChevronsRightFilled className="h-5 w-5" />
-        </button>
-      </div>
-      <div className="flex items-center gap-2">
-        <div className="flex items-center gap-2">
-          <label htmlFor="go-to-page" className="text-sm text-gray-600">
-            Go to:
-          </label>
-          <input
-            id="go-to-page"
-            type="number"
-            defaultValue=""
-            min={1}
-            max={totalPages}
-            onChange={(e) => {
-              const page = +e.target.value;
-              if (page < 1 && page > totalPages) return;
-              gotoPage(page || 1);
-            }}
-            disabled={!canNextPage && !canPreviousPage}
-            className="w-14 rounded border border-gray-200 px-2 py-1 text-sm disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400"
-          />
-        </div>
-        <div className="flex items-center gap-2">
-          <label htmlFor="rows-per-page" className="text-sm text-gray-600">
-            Rows per page:
-          </label>
-          <select
-            id="rows-per-page"
-            value={pageSize}
-            onChange={(e) => {
-              setPageSize(Number(e.target.value));
-            }}
-            className="rounded border border-gray-200 px-2 py-1 text-sm"
-          >
-            {[10, 20, 30, 40, 50].map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                {pageSize}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -665,11 +525,15 @@ const DashboardPage: NextPage = () => {
             </div>
 
             {/* Table Section */}
-            <div className="grid grid-cols-1  gap-6 sm:gap-8">
+            <div className="gap-6 sm:gap-8">
               <div>
-                <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-4">
-                  Today’s Trending Locations
-                </h3>
+                <div className="flex justify-between">
+                  <h3 className="text-base sm:text-lg font-semibold text-[#242440]">
+                    Today’s Trending Locations
+                  </h3>
+                  <Link href="#" className="underline text-[#242440] text-sm">Monitor Location Activities</Link>
+                </div>
+
                 <Table<LocationData>
                   data={dummyLocations}
                   columns={columns as ColumnDef<LocationData>[]}
@@ -684,6 +548,7 @@ const DashboardPage: NextPage = () => {
           </main>
         </div>
       </div>
+
       <Modal
         display={modalDisplay}
         close={() => setModalDisplay(false)}
