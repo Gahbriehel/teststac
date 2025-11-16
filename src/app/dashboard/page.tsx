@@ -1,6 +1,5 @@
 "use client";
 
-// app/merchants/dashboard/page.tsx
 import { type NextPage } from "next";
 import { useState } from "react";
 import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
@@ -32,8 +31,8 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { Modal } from "@/components/UI/Modal";
 import { StatContainer } from "@/components/UI/StatContainer";
 import Link from "next/link";
+import { TbCircleDotted } from "react-icons/tb";
 
-// Dummy data embedded
 const dummyUser = {
   firstName: "Adebowale",
   lastName: "Paul-George",
@@ -75,7 +74,7 @@ const dummyChartData = {
       data: [
         0, 1200000, 1900000, 3000000, 5000000, 2000000, 3000000, 6000000,
         4000000, 5000000, 7000000, 5062,
-      ], // Dummy values
+      ], 
       borderColor: "rgb(59, 130, 246)",
       backgroundColor: "rgba(59, 130, 246, 0.5)",
       tension: 0.1,
@@ -225,7 +224,7 @@ function Table<T>({
   data,
   columns,
   children,
-  onRowClick = () => {},
+  onRowClick = () => { },
   error,
   loading,
   rowSelection,
@@ -246,7 +245,7 @@ function Table<T>({
 
   return (
     <div>
-      <div className="sticky -top-6 z-10 mb-6 flex flex-col bg-white shadow-sm md:flex-row md:items-center md:justify-between md:gap-4">
+      <div className="sticky z-10 mb-6 flex flex-col bg-white shadow-sm md:flex-row md:items-center md:justify-between md:gap-4">
         {children}
       </div>
       {loading && <div className="py-8">Loading...</div>}
@@ -278,9 +277,9 @@ function Table<T>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                     </th>
                   ))}
                 </tr>
@@ -304,9 +303,9 @@ function Table<T>({
                       )}
                     >
                       {!["select", "image"].includes(cell.column.id) &&
-                      (cell.getValue() === null ||
-                        cell.getValue() === undefined ||
-                        cell.getValue() === "") ? (
+                        (cell.getValue() === null ||
+                          cell.getValue() === undefined ||
+                          cell.getValue() === "") ? (
                         <span className="text-gray-400">N/A</span>
                       ) : (
                         flexRender(
@@ -337,9 +336,9 @@ function Table<T>({
                       {footer.isPlaceholder
                         ? null
                         : flexRender(
-                            footer.column.columnDef.footer,
-                            footer.getContext(),
-                          )}
+                          footer.column.columnDef.footer,
+                          footer.getContext(),
+                        )}
                     </th>
                   ))}
                 </tr>
@@ -381,11 +380,9 @@ function IndeterminateCheckbox({
 // Mock chart component (using simple SVG for line chart, or integrate Recharts if available)
 function CashPickupChart() {
   return (
-    <div className="h-64 w-full bg-gray-50 rounded-lg flex items-center justify-center">
+    <div className=" w-full bg-gray-50 rounded-lg flex items-center justify-center">
       <canvas width={800} height={200} className="w-full h-full">
-        {/* Simple dummy line chart rendering */}
         <line x1="0" y1="100" x2="800" y2="100" stroke="blue" strokeWidth="2" />
-        {/* Add more lines/points based on dummyChartData */}
       </canvas>
     </div>
   );
@@ -460,14 +457,14 @@ const DashboardPage: NextPage = () => {
               ]}
             />
 
-            {/* Chart */}
-            <div className="flex">
-              <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100 mb-6 sm:mb-8">
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2 sm:gap-0">
-                  <h3 className="text-base sm:text-lg font-medium text-gray-900">
+            {/* Chart and Quick Actions */}
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 py-2 mt-6">
+              <div className="bg-white p-3 sm:p-4 w-full sm:w-[70%] rounded-lg shadow-sm border border-gray-100 sm:mb-0 mb-4">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 sm:mb-4 gap-2 sm:gap-0">
+                  <h3 className="text-sm sm:text-base font-medium text-gray-900">
                     Total Cash Pickup (Across Stores)
                   </h3>
-                  <select className="text-sm border border-gray-200 rounded w-full sm:w-auto">
+                  <select className="text-xs sm:text-sm border border-gray-200 rounded w-full sm:w-auto px-2 py-1">
                     <option>12 Months</option>
                     <option>4 Months</option>
                     <option>30 Days</option>
@@ -475,69 +472,58 @@ const DashboardPage: NextPage = () => {
                   </select>
                 </div>
                 <CashPickupChart />
-                <button className="mt-4 text-sm text-sky-600">
+                <button className="mt-3 sm:mt-4 text-xs sm:text-sm text-sky-600">
                   Export Report
                 </button>
               </div>
 
-              {/* Quick Actions */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-                <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100">
-                  <button className="w-full text-left">
-                    <span className="block text-sm text-gray-500 mb-2">
-                      Create a new location
-                    </span>
-                    <span className="text-sky-600 font-medium">
-                      Create Location
-                    </span>
-                  </button>
-                </div>
-                <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100">
-                  <button className="w-full text-left">
-                    <span className="block text-sm text-gray-500 mb-2">
-                      Create a new Manager
-                    </span>
-                    <span className="text-sky-600 font-medium">
-                      Create Manager
-                    </span>
-                  </button>
-                </div>
-                <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100">
-                  <button className="w-full text-left">
-                    <span className="block text-sm text-gray-500 mb-2">
-                      Create a new Region
-                    </span>
-                    <span className="text-sky-600 font-medium">
-                      Create Region
-                    </span>
-                  </button>
-                </div>
+              <div className="flex flex-col p-3 sm:p-6 gap-3 sm:gap-6 bg-white w-full sm:w-[30%]">
+                <h2 className="text-sm sm:text-base mb-2 sm:mb-4 font-medium text-gray-900">
+                  Quick Actions
+                </h2>
+                <Link
+                  href="#"
+                  className="bg-white p-2 sm:p-1 sm:p-2 rounded-lg shadow-sm border border-dashed border-[#242440] flex items-center gap-2 text-sm hover:bg-gray-50 transition-colors"
+                >
+                  <TbCircleDotted className="text-xs sm:text-sm flex-shrink-0" />
+                  Create a new location
+                </Link>
+                <Link
+                  href="#"
+                  className="bg-white p-2 sm:p-1 sm:p-2 rounded-lg shadow-sm border border-dashed border-[#242440] flex items-center gap-2 text-sm hover:bg-gray-50 transition-colors"
+                >
+                  <TbCircleDotted className="text-xs sm:text-sm flex-shrink-0" />
+                  Create a new Manager
+                </Link>
+                <Link
+                  href="#"
+                  className="bg-white p-2 sm:p-1 sm:p-2 rounded-lg shadow-sm border border-dashed border-[#242440] flex items-center gap-2 text-sm hover:bg-gray-50 transition-colors"
+                >
+                  <TbCircleDotted className="text-xs sm:text-sm flex-shrink-0" />
+                  Create a new Region
+                </Link>
               </div>
             </div>
 
             {/* Table Section */}
-            <div className="gap-6 sm:gap-8">
-              <div>
-                <div className="flex justify-between">
-                  <h3 className="text-base sm:text-lg font-semibold text-[#242440]">
-                    Today’s Trending Locations
-                  </h3>
-                  <Link href="#" className="underline text-[#242440] text-sm">
-                    Monitor Location Activities
-                  </Link>
-                </div>
-
-                <Table<LocationData>
-                  data={dummyLocations}
-                  columns={columns as ColumnDef<LocationData>[]}
-                  onRowClick={(row) => console.log(row)}
-                  error={false}
-                  loading={false}
-                  rowSelection={rowSelection}
-                  setRowSelection={setRowSelection}
-                />
+              <div className="flex justify-between py-4 mt-6">
+                <h3 className="text-base sm:text-lg font-semibold text-[#242440]">
+                  Today’s Trending Locations
+                </h3>
+                <Link href="#" className="underline text-[#242440] text-sm">
+                  Monitor Location Activities
+                </Link>
               </div>
-            </div>
+
+              <Table<LocationData>
+                data={dummyLocations}
+                columns={columns as ColumnDef<LocationData>[]}
+                onRowClick={(row) => console.log(row)}
+                error={false}
+                loading={false}
+                rowSelection={rowSelection}
+                setRowSelection={setRowSelection}
+              />
           </main>
         </div>
       </div>
