@@ -4,7 +4,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState, type JSX } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { passwordValidation } from "@/components/helpers/passwordValidation";
 import { Input } from "@/components/FormElements/Input";
@@ -18,7 +17,6 @@ interface Inputs {
 }
 
 export default function Login(): JSX.Element {
-  const router = useRouter();
   const [showPassword, setShowPassword] = useState<"password" | "text">(
     "password",
   );

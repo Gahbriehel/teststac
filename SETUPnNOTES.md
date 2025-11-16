@@ -6,13 +6,13 @@ A modern Next.js application built with reusable UI components, clean architectu
 
 ## 🚀 Tech Stack
 
-* **Next.js 16 (App Router)**
-* **React 19**
-* **TypeScript**
-* **TailwindCSS v4**
-* **React Hook Form + Yup**
-* **ESLint (Flat config) + Prettier**
-* **Yarn (primary package manager)**
+- **Next.js 16 (App Router)**
+- **React 19**
+- **TypeScript**
+- **TailwindCSS v4**
+- **React Hook Form + Yup**
+- **ESLint (Flat config) + Prettier**
+- **Yarn (primary package manager)**
 
 ---
 
@@ -73,7 +73,6 @@ Created components like `StatContainer`, `Modal`, `Sidebar`, and `Logo` to maint
 Using RHF for performant forms and Yup for schema-based validation.
 **Tradeoff:** Requires learning a schema system, but results in cleaner validation logic.
 
-
 ### **3. Sorting, Filtering & Table Logic with TanStack Table & Match Sorter Utils**
 
 Provides robust table functionality and fuzzy search utilities.
@@ -93,5 +92,3 @@ Used for modal transitions, sidebar animations, and micro-interactions.
 
 Ensures utility classes are automatically sorted.
 **Tradeoff:** Requires plugin setup, but improves consistency.
-
-

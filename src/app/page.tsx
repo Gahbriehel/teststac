@@ -10,8 +10,6 @@ export default function Home() {
           Welcome to TestStat
         </h1>
 
-       
-
         <Link
           href="/merchants"
           className="inline-block bg-blue-800 hover:bg-blue-900 text-white font-medium px-6 py-3 rounded-lg transition-colors"
