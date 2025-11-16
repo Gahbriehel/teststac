@@ -456,7 +456,8 @@ function CashPickupChart() {
         },
         ticks: {
           display: false,
-          callback: function (value: number) {
+          callback: function (this: any, tickValue: string | number) {
+            const value = typeof tickValue === 'string' ? parseFloat(tickValue) : tickValue;
             return `₦${(value / 1000000000).toFixed(0)}BN`;
           },
           color: "#6B7280",
