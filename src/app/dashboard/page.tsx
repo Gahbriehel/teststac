@@ -423,6 +423,19 @@ function IndeterminateCheckbox({
 }
 
 function CashPickupChart() {
+  const [fontSize, setFontSize] = useState(12);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setFontSize(window.innerWidth < 640 ? 10 : 12);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -446,7 +459,7 @@ function CashPickupChart() {
         ticks: {
           color: "#6B7280",
           font: {
-            size: window.innerWidth < 640 ? 10 : 12,
+            size: fontSize, // Now dynamic and safe
           },
         },
       },
@@ -457,7 +470,8 @@ function CashPickupChart() {
         ticks: {
           display: false,
           callback: function (this: any, tickValue: string | number) {
-            const value = typeof tickValue === 'string' ? parseFloat(tickValue) : tickValue;
+            const value =
+              typeof tickValue === "string" ? parseFloat(tickValue) : tickValue;
             return `₦${(value / 1000000000).toFixed(0)}BN`;
           },
           color: "#6B7280",
