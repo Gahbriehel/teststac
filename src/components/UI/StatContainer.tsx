@@ -16,11 +16,13 @@ export function StatContainer({
   className = "",
 }: StatContainerProps): ReactNode {
   return (
-    <div className={`grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 ${className}`}>
+    <div
+      className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8 ${className}`}
+    >
       {data.map((item, index) => (
         <div
           key={index}
-          className="bg-white p-6 rounded-lg shadow-sm border border-gray-100"
+          className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
         >
           {item.loading ? (
             <div className="space-y-3">
@@ -29,10 +31,12 @@ export function StatContainer({
             </div>
           ) : (
             <>
-              <h3 className="text-sm font-medium text-gray-500 font-Inter">
+              <h3 className="text-xs sm:text-sm font-medium text-gray-500 mb-2">
                 {item.title.toUpperCase()}
               </h3>
-              <p className="text-2xl font-bold text-gray-900">{item.value}</p>
+              <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 break-words">
+                {item.value}
+              </p>
             </>
           )}
         </div>
