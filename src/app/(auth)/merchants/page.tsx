@@ -11,7 +11,6 @@ import { Checkbox } from "@/components/FormElements/Checkbox";
 import { Button } from "@headlessui/react";
 import { useRouter } from "next/navigation";
 
-
 interface Inputs {
   email: string;
   password: string;
